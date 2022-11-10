@@ -1,8 +1,9 @@
-import './App.css';
 import { Card, Row, Col, Divider, Input, Button } from 'antd';
+import './App.css';
 import foodsJSON from './foods.json';
 import FoodBox from './components/FoodBox';
 import { useState } from "react"; 
+import AddFoodForm from './components/AddFoodForm';
 
 
 function App() {
@@ -36,6 +37,12 @@ function App() {
         servings: 1
       } } /> */}
 
+      {/* iteration 4*/}
+            
+      <h1>Iteration 4</h1>
+      <AddFoodForm foods={foods} setFoods={setFoods} />
+
+
       {/* iteration 3*/}
       
       <h1>Iteration 3</h1>
@@ -49,11 +56,13 @@ function App() {
                 calories: f.calories,
                 image: f.image,
                 servings: f.servings
-              } } />
+              } } setFoods={setFoods}/>
             )
             })}
         </div>
       </Col>
+
+      
 
     </div>
   );
