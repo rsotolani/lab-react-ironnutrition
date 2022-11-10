@@ -56,7 +56,7 @@ function App() {
                 calories: f.calories,
                 image: f.image,
                 servings: f.servings
-              } } setFoods={setFoods}/>
+              } } foods={foods} setFoods={setFoods} />
             )
             })}
         </div>

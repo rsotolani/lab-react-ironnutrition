@@ -1,14 +1,14 @@
 import { Card, Col, Button } from 'antd';
 
-function FoodBox({food, setFoods}) {
+function FoodBox({food, foods, setFoods}) {
 
     function handleDelete(e) {
         console.log(e.target);
 
-        let filteredFoods = food.filter(f) => {
-            return f.name != e
-        }
-
+        let filteredFoods = foods.filter((f) => {
+            return f.name !== e
+        })
+        setFoods(filteredFoods);
 
     }
     return (

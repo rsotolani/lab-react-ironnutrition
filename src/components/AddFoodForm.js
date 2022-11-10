@@ -47,7 +47,7 @@ function AddFoodForm({ foods, setFoods }) {
       <label>Servings</label>
       <Input onChange={handleChange}  type="text" name="servings" />
 
-      <button type="submit" onClick={handleSubmit}>Create</button>
+      <button type="submit" onClick={handleSubmit} >Create</button>
     </form>
     )
 }
