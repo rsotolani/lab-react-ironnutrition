@@ -1,15 +1,19 @@
 import { Card, Col, Button } from 'antd';
 
-function FoodBox({food, foods, setFoods}) {
+function FoodBox({food, allFoods, setAllFoods}) {
 
-    function handleDelete(e) {
-        console.log(e.target);
-
-        let filteredFoods = foods.filter((f) => {
-            return f.name !== e
-        })
-        setFoods(filteredFoods);
-
+    function handleDelete(foodSelect) {
+        // let filteredFoods = allFoods.filter((f) => {
+        //     return f.name !== e
+        // })
+        // setAllFoods(filteredFoods);
+        console.log(foodSelect); // o nome da food que eu cliquei!!
+    
+        let filteredFoods = allFoods.filter((food) => {
+            return food.name !== foodSelect;
+        });
+    
+        setAllFoods(filteredFoods);
     }
     return (
         <Col>
@@ -21,7 +25,7 @@ function FoodBox({food, foods, setFoods}) {
                 <p>Calories: {food.calories}</p>
                 <p>Servings: {food.servings}</p>
                 <p>
-                    <strong>Total Calories: {food.calories} * {food.servings} </strong>
+                    <strong>Total Calories: {food.calories * food.servings} </strong>
                 </p>
                 <Button type="primary" onClick={() => handleDelete(food.name)}>Delete</Button>
             </Card>

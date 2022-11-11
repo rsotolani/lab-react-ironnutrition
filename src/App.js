@@ -1,14 +1,23 @@
-import { Card, Row, Col, Divider, Input, Button } from 'antd';
+import { Row, Divider, Button } from 'antd';
 import './App.css';
 import foodsJSON from './foods.json';
 import FoodBox from './components/FoodBox';
 import { useState } from "react"; 
+import SearchBar from './components/SearchBar';
 import AddFoodForm from './components/AddFoodForm';
 
 
 function App() {
 
-  const [foods, setFoods] = useState(foodsJSON);
+  const [allFoods, setAllFoods] = useState(foodsJSON);
+  const [search, setSearch] = useState('');
+  const [showForm, setShowForm] = useState(false);
+
+  function handleShowForm() {
+    setShowForm(!showForm);
+  }
+  console.log(showForm);
+
 
   return (
     <div className="App">
@@ -17,7 +26,7 @@ function App() {
       <h1>Iteration 1</h1>
       <Divider>Food List</Divider>
       <Col style={{ width: '100%', justifyContent: 'center' }}>
-        {foods.map(function (food) {
+        {allFoods.map(function (food) {
           return (
             <div>
               <p>{food.name}</p>
@@ -30,40 +39,56 @@ function App() {
       {/* iteration 2
       <h1>Iteration 2</h1>
       <Divider>Food Box</Divider>
-      <FoodBox food={ {
+      <FoodBox allFood={ {
         name: "Orange",
         calories: 85,
         image: "https://i.imgur.com/abKGOcv.jpg",
         servings: 1
       } } /> */}
 
-      {/* iteration 4*/}
-            
-      <h1>Iteration 4</h1>
-      <AddFoodForm foods={foods} setFoods={setFoods} />
-
-
-      {/* iteration 3*/}
       
-      <h1>Iteration 3</h1>
+
+      
+
+      {/* iteration 4*/}     
+      {showForm === true && (
+        <AddFoodForm allFoods={allFoods} setAllFoods={setAllFoods} />
+      )}
+
+      {/* iteration 7*/}     
+      <Button onClick={handleShowForm}>{showForm === true ? <span>Hide Form</span> : <span>Add New Food</span> }</Button>
+
+      {/* iteration 5*/}     
+      <SearchBar search={search}  setSearch={setSearch}/>
+
+
+      {/* iteration 3 e 6*/}
       <Divider>Food List</Divider>
-      <Col style={{ width: '100%', justifyContent: 'center' }}>
-        <div style={ {display: "flex", flexWrap: "wrap" }}>
-          {foods.map( (f) => {
+      <Row style={{ width: '100%', justifyContent: 'center' }}>
+        {/* {allFoods.map((food) => {
             return (
-              <FoodBox food={ {
-                name: f.name,
-                calories: f.calories,
-                image: f.image,
-                servings: f.servings
-              } } foods={foods} setFoods={setFoods} />
-            )
-            })}
-        </div>
-      </Col>
-
-      
-
+              <FoodBox food={food} foods={allFoods} setFoods={setAllFoods}/>
+            )      
+          })} */}
+          {/* renderizando a lista de comidas */}
+        {allFoods
+          .filter((food) => {
+            return (
+              food.name.toLocaleLowerCase().includes(search.toLowerCase()) ||
+              String(food.calories).includes(search)
+            );
+          })
+          .map((food) => {
+            return (
+              <FoodBox
+                food={food}
+                key={food.name}
+                allFoods={allFoods}
+                setAllFoods={setAllFoods}
+              />
+            );
+          })}
+      </Row>
     </div>
   );
 }
